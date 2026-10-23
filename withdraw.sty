@@ -1,0 +1,36 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{withdraw}[2026/10/23 v0.1.0 Typeset withdrawal schedules and survival-check tables]
+
+% withdraw: tables for tracking a drawdown plan year by year,
+% with the withdrawal taken, the end balance and a survival check.
+
+\RequirePackage{array}
+
+% \wrsource{text} prints a small assumptions line under the title.
+\newcommand{\wrsource}[1]{\par\addvspace{2pt}{\small Assumptions: #1}\par\addvspace{4pt}}
+
+% \begin{withdrawal}{Title} ... \end{withdrawal}
+\newenvironment{withdrawal}[1]{%
+  \par\addvspace{\medskipamount}%
+  \noindent\textbf{\large #1}\par\addvspace{4pt}%
+  \begin{tabular}%
+    {@{}>{\raggedright\arraybackslash}p{0.14\linewidth}%
+      >{\raggedleft\arraybackslash}p{0.24\linewidth}%
+      >{\raggedleft\arraybackslash}p{0.26\linewidth}%
+      >{\raggedright\arraybackslash}p{0.24\linewidth}@{}}
+  \hline
+  \textbf{Year} & \textbf{Withdrawal} & \textbf{End balance} & \textbf{Check}\tabularnewline
+  \hline
+}{%
+  \hline
+  \end{tabular}%
+  \par\addvspace{\medskipamount}%
+}
+
+% \withdrawrow{year}{withdrawal}{balance}{check}
+\newcommand{\withdrawrow}[4]{#1 & #2 & #3 & #4\tabularnewline[2pt]}
+
+% \wrnote{text} prints a small-print note under the table.
+\newcommand{\wrnote}[1]{\par\addvspace{2pt}{\small #1}}
+
+\endinput
